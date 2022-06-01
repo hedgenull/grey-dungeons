@@ -24,8 +24,8 @@ class Character(Item):
         self.description = description
         self.health = health
         self.speech = speech
-        self.subject_pronoun = "it"
-        self.object_pronoun = "they"
+        self.subject_pronoun = "they"
+        self.object_pronoun = "it"
 
     def talk(self):
         if self.speech:
