@@ -72,6 +72,13 @@ CONTEMPLATIONS = [
     "Life is the measure of all things.",
 ]
 
+BRAIN_DAMAGE = [
+    "You show {name} the latest CNN article. Its stunning lack of logic gives {obj} a pounding headache just looking at it.",
+    "You tell {name} that water is dry. {name}'s head summarily explodes.",
+    "You show {name} how Biden clearly won the 2020 election. {obj} faints dead away.",
+    "You tell {name} that pay phones are disappearing so that they can't exit the Matrix. {sbj} goes into a coma."
+]
+
 STORY = """
 While crossing the Eldon Mountains to travel to the city of Bahreto'kala,
 you find yourself hopelessly lost. Stumbling through the whirling snow,

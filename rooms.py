@@ -42,7 +42,7 @@ organ = adv.Room(
 sword = adv.Room(
     "A dark room that has 1 other door, on which hangs a huge sword.")
 secret = adv.Room(
-    "A room with 1 door. It's obvious that this used to be a secret place- there's a big sign saying 'This is a secret place' hanging on the door."
+    "A room with 2 doors. It's obvious that this used to be a secret place- there's a big sign saying 'This is a secret place' hanging on the door."
 )
 peach = adv.Room(
     "A dark room that has 2 doors, and a rotting peach in the corner.")
@@ -65,6 +65,15 @@ gold = adv.Room(
     "A semi-dark room that has 4 doors, each of which is made of solid gold.")
 dark = adv.Room(
     "A pitch-black room that's perfectly quiet. You can't tell what's lurking in the shadows..."
+)
+lava = adv.Room(
+    "A bright and uncomfortably warm room, lit up by streams of magma crossing the floor. Watch your step!"
+)
+portal = adv.Room(
+    "A dark room. In the center floats a mysterious purple portal. Where does it go?"
+)
+crypt = adv.Room(
+    "A dark passageway that slopes downward. In the walls are carved slots, filled with skeletons and corpses. Yipes!"
 )
 
 # Room connections
@@ -110,6 +119,12 @@ peach.east = organ
 
 organ.south = cake_lie
 
+secret.east = lava
+
+lava.north = portal
+
+portal.north = crypt
+
 # Room items
 
 entrance.items = adv.Bag([Item("torch", "lit torch")])
@@ -142,6 +157,11 @@ soup_time.items = adv.Bag([
          "soup time")
 ])
 
+crypt.items = adv.Bag([
+    Item("skull", "old skull", "ancient skull"),
+    Item("femur", "legbone", "femur bone")
+])
+
 # Entities in rooms
 
 entrance.entities.add(
@@ -157,3 +177,8 @@ statue.entities.add(
         "statue",
         "A statue of an armor-clad warrior. It holds a big spear in its right hand.",
         ["thud", "thunk", "creak", "crack"]))
+
+crypt.entities.add(
+    Character("zombie",
+              "An undead creature with glowing green eyes and a scimitar.",
+              ["bleugh", "blargh", "auch", "throrp", "ugh"]))

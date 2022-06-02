@@ -175,6 +175,30 @@ def talk_to(entity):
         error(f"There is no {entity}.")
 
 
+@adv.when("hit TARGET with ITEM")
+@adv.when("slap TARGET with ITEM")
+@adv.when("use ITEM on TARGET")
+@adv.when("attack TARGET with ITEM")
+@adv.when("maul TARGET with ITEM")
+@adv.when("maim TARGET with ITEM")
+def hit_with(target, item):
+    """Hit something with something else."""
+    _target = current_room.entities.find(target)
+    _item = my_inventory.find(item)
+
+    if not _item:  # You can't hit someone with nothing!
+        error(f"You don't have any {item}.")
+    else:  # But you can with something.
+        if _target:  # There's an entity to hit.
+            print(f"You hit {_target.def_name} with the {_item}.")
+            _target.health -= 1
+        elif _target := current_room.items.find(
+                target):  # There's an item to hit.
+            print(f"You hit the {_target} with the {_item}.")
+        else:  # There is no spoon, or entity, or even an item.
+            error(f"There is no {target}.")
+
+
 @adv.when("hit TARGET")
 @adv.when("slap TARGET")
 @adv.when("kick TARGET")
@@ -195,29 +219,6 @@ def hit(target):
         error(f"There is no {target}.")
 
 
-@adv.when("hit TARGET with ITEM")
-@adv.when("slap TARGET with ITEM")
-@adv.when("use ITEM on TARGET")
-@adv.when("attack TARGET with ITEM")
-@adv.when("maul TARGET with ITEM")
-def hit_with(target, item):
-    """Hit something with something else."""
-    _target = current_room.entities.find(target)
-    _item = my_inventory.find(item)
-
-    if not _item:  # You can't hit someone with nothing!
-        error(f"You don't have any {item}.")
-    else:  # But you can with something.
-        if _target:  # There's an entity to hit.
-            print(f"You hit {_target.def_name} with the {_item}.")
-            _target.health -= 1
-        elif _target := current_room.items.find(
-                target):  # There's an item to hit.
-            print(f"You hit the {_target} with the {_item}.")
-        else:  # There is no spoon, or entity, or even an item.
-            error(f"There is no {target}.")
-
-
 @adv.when("use ITEM")
 @adv.when("equip ITEM")
 def equip(item):
@@ -228,6 +229,19 @@ def equip(item):
         print(f"You equip the {obj}.")
     else:
         error(f"You don't have any {item}.")
+
+
+@adv.when("give TARGET permanent brain damage")
+def brain_damage(target):
+    """Give a target permanent brain damage."""
+    _target = current_room.entities.find(target)
+
+    if _target:  # There's an entity to give permanent brain damage! Oh gee!
+        print(
+            random.choice(BRAIN_DAMAGE).format(
+                name=_target.def_name,
+                obj=_target.object_pronoun.title(),
+                sbj=_target.subject_pronoun))
 
 
 @adv.when("soliloquize")
