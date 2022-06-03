@@ -18,8 +18,7 @@ class Character(Item):
         """Construct a Character object."""
         super().__init__(name.title())
         self.name = name.title()
-        self.def_name = def_name.lower(
-        ) if def_name else f"the {self.name.lower()}"
+        self.def_name = def_name.lower() if def_name else f"the {self.name.lower()}"
         self.gender = gender
         self.description = description
         self.health = health

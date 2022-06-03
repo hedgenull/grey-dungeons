@@ -11,8 +11,8 @@ from rooms import *
 
 # Game variables
 
-current_room = entrance
-last_room = entrance
+cur_room = entrance
+prev_room = entrance
 
 # Functions
 
@@ -31,7 +31,7 @@ def drop(item):
         error(f"You do not have any {item}.")
     else:  # Yay, we can drop stuff now.
         print(f"You drop the {obj}, which falls with a thump to the floor.")
-        current_room.items.add(obj)
+        cur_room.items.add(obj)
 
 
 @adv.when("inventory")
@@ -68,9 +68,11 @@ def main():
     global my_name, my_species
 
     my_name = pip.inputStr(
-        prompt=f"{MAIN_COLOR}What is your name, traveler? {YELLOW}").title()
+        prompt=f"{MAIN_COLOR}What is your name, traveler? {YELLOW}"
+    ).title()
     my_species = pip.inputMenu(
-        SPECIES, prompt=f"{MAIN_COLOR}What race do you belong to?\n{YELLOW}")
+        SPECIES, prompt=f"{MAIN_COLOR}What race do you belong to?\n{YELLOW}"
+    )
 
     # Make the player feel as comfortable as possible when they're in a creepy abandoned dungeon.
     print(f"\nWelcome to the Grey Dungeons, {my_name}! Good luck!")
@@ -83,22 +85,20 @@ def main():
 @adv.when("grab ITEM")
 def take(item):
     """Take an item and add it to your inventory."""
-    obj = current_room.items.take(item)
+    obj = cur_room.items.take(item)
     if not obj:  # There's not an item in the room with that name...
-        if ent := current_room.entities.find(
-                item):  # ...but there is an entity!
+        if ent := cur_room.entities.find(item):  # ...but there is an entity!
             error(f"You can't take {ent.def_name}.")
         else:  # There's no entities either.
-            if current_room.visible:
+            if cur_room.visible:
                 error(f"There is no {item}.")
             else:
                 error(
                     f"You grope around in the darkness for the {item}, but you can't seem to find one."
                 )
     else:  # The item exists! Yippee!
-        if len(my_inventory
-               ) < INVENTORY_SIZE:  # If your pockets aren't full yet...
-            if current_room.visible:
+        if len(my_inventory) < INVENTORY_SIZE:  # If your pockets aren't full yet...
+            if cur_room.visible:
                 my_inventory.add(obj)
                 print(f"You take the {obj}.")
             else:
@@ -106,8 +106,7 @@ def take(item):
                     f"You grope around in the darkness for the {item}, but you can't seem to find one."
                 )
         else:  # Dang, you can't carry that.
-            error(
-                "Your inventory is full! Try dropping/eating something first.")
+            error("Your inventory is full! Try dropping/eating something first.")
 
 
 @adv.when("look")
@@ -117,20 +116,20 @@ def take(item):
 def look_around():
     """Observe your current surroundings."""
     print(f"You look around. Here's what you see:")
-    print(current_room)  # Print the description
-    if current_room.visible:  # Can we even see in this room?
+    print(cur_room)  # Print the description
+    if cur_room.visible:  # Can we even see in this room?
         print("\nExits:")
-        for exit in current_room.exits():
+        for exit in cur_room.exits():
             print(f"* {exit}")
 
-        if current_room.items:
+        if cur_room.items:
             print("\nItems:")
-            for item in current_room.items:
+            for item in cur_room.items:
                 print(f"* {item}")
 
-        if current_room.entities:
+        if cur_room.entities:
             print("\nCreatures:")
-            for entity in current_room.entities:
+            for entity in cur_room.entities:
                 print(f"* {entity}")
     else:  # Apparently not.
         error("You can't see anything in here.")
@@ -142,13 +141,14 @@ def look_around():
 @adv.when("kung fu DIRECTION door")
 def break_down(direction):
     """Try to break down a door."""
-    global current_room
+    global cur_room
 
-    if current_room.exit(direction):
+    if cur_room.exit(direction):
         print(f"You break down the {direction} door.")
         try:
-            exec(f"current_room.{direction}.locked = False"
-                 )  # That door doesn't have a chance after a Dragon Kick.
+            exec(
+                f"current_room.{direction}.locked = False"
+            )  # That door doesn't have a chance after a Dragon Kick.
         except:
             pass
 
@@ -158,17 +158,14 @@ def break_down(direction):
 @adv.when("converse with ENTITY")
 def talk_to(entity):
     """Talk to an entity."""
-    hopefully_entity = current_room.entities.find(entity)
+    hopefully_entity = cur_room.entities.find(entity)
 
     if hopefully_entity:  # It's a real entity.
         input(
             f"{MAIN_COLOR}What do you want to say to {hopefully_entity.def_name}?{YELLOW} "
         )
-        print(
-            f"{hopefully_entity.def_name.title()} says \"{hopefully_entity.talk()}\""
-        )
-    elif not_person := current_room.items.find(
-            entity):  # If it's an item, not an entity...
+        print(f'{hopefully_entity.def_name.title()} says "{hopefully_entity.talk()}"')
+    elif not_person := cur_room.items.find(entity):  # If it's an item, not an entity...
         if not_person:
             error(f"The {hopefully_entity} can't talk, pal.")
     else:  # Oops, there's nothing to talk to.
@@ -183,7 +180,7 @@ def talk_to(entity):
 @adv.when("maim TARGET with ITEM")
 def hit_with(target, item):
     """Hit something with something else."""
-    _target = current_room.entities.find(target)
+    _target = cur_room.entities.find(target)
     _item = my_inventory.find(item)
 
     if not _item:  # You can't hit someone with nothing!
@@ -192,8 +189,7 @@ def hit_with(target, item):
         if _target:  # There's an entity to hit.
             print(f"You hit {_target.def_name} with the {_item}.")
             _target.health -= 1
-        elif _target := current_room.items.find(
-                target):  # There's an item to hit.
+        elif _target := cur_room.items.find(target):  # There's an item to hit.
             print(f"You hit the {_target} with the {_item}.")
         else:  # There is no spoon, or entity, or even an item.
             error(f"There is no {target}.")
@@ -207,13 +203,12 @@ def hit_with(target, item):
 @adv.when("punch TARGET")
 def hit(target):
     """Kung-fu the target."""
-    _target = current_room.entities.find(target)
+    _target = cur_room.entities.find(target)
 
     if _target:  # There's an entity to attack. Yay, violence!
         print(f"You flail wildly at {_target.def_name}.")
         _target.health -= 0.5
-    elif _target := current_room.items.find(
-            target):  # There's an item to knock around.
+    elif _target := cur_room.items.find(target):  # There's an item to knock around.
         print(f"You flail wildly at the {_target}.")
     else:
         error(f"There is no {target}.")
@@ -234,14 +229,16 @@ def equip(item):
 @adv.when("give TARGET permanent brain damage")
 def brain_damage(target):
     """Give a target permanent brain damage."""
-    _target = current_room.entities.find(target)
+    _target = cur_room.entities.find(target)
 
     if _target:  # There's an entity to give permanent brain damage! Oh gee!
         print(
             random.choice(BRAIN_DAMAGE).format(
                 name=_target.def_name,
                 obj=_target.object_pronoun.title(),
-                sbj=_target.subject_pronoun))
+                sbj=_target.subject_pronoun,
+            )
+        )
 
 
 @adv.when("soliloquize")
@@ -251,7 +248,7 @@ def brain_damage(target):
 def contemplate():
     """Contemplate the universe."""
     saying = random.choice(CONTEMPLATIONS)
-    print(f"\"{saying}\", you think")
+    print(f'"{saying}", you think')
 
 
 @adv.when("burn ITEM")
@@ -260,25 +257,28 @@ def contemplate():
 def burn(item):
     """It does what it sounds like."""
     if my_species == "half-dragon":  # Can you breathe fire? If so...
-        if obj := current_room.items.take(
-                item):  # If the item's in the room...
+        if obj := cur_room.items.take(item):  # If the item's in the room...
             print(f"You burn the {obj}. Its ashes fall to the floor.")
-            current_room.items.add(
-                Item(f"{obj} ashes", f"{obj} remains", f"{obj} remnants"))
+            cur_room.items.add(
+                Item(f"{obj} ashes", f"{obj} remains", f"{obj} remnants")
+            )
         elif obj := my_inventory.take(item):  # If it's in your inventory...
             print(f"You burn the {obj} and stuff its ashes in your pocket.")
-            my_inventory.add(
-                Item(f"{obj} ashes", f"{obj} remains", f"{obj} remnants"))
-        elif obj := current_room.entities.find(
-                item):  # It's not an item after all, it's an entity.
+            my_inventory.add(Item(f"{obj} ashes", f"{obj} remains", f"{obj} remnants"))
+        elif obj := cur_room.entities.find(
+            item
+        ):  # It's not an item after all, it's an entity.
             print(f"You burn {obj.def_name}.")
             obj.health -= 1
             if obj.check_dead("{}'s ashes fall to the floor."):
-                current_room.entities.remove(obj)
-                current_room.items.add(
-                    Item(f"{obj.name.lower()} ashes",
-                         f"{obj.name.lower()} remains",
-                         f"{obj.name.lower()} remnants"))
+                cur_room.entities.remove(obj)
+                cur_room.items.add(
+                    Item(
+                        f"{obj.name.lower()} ashes",
+                        f"{obj.name.lower()} remains",
+                        f"{obj.name.lower()} remnants",
+                    )
+                )
         else:  # There's nothing to burn. How tragic.
             error(f"There is no {item} in the room or in your inventory.")
     else:  # You can't even burn whatever you wanted to. Lame.
@@ -295,11 +295,11 @@ def burn(item):
 @adv.when("w", direction="west")
 def go(direction):
     """Go in a direction, if possible."""
-    global current_room
-    room = current_room.exit(direction)
+    global cur_room
+    room = cur_room.exit(direction)
     if room:  # If there's a door in that direction...
         if not room.locked:  # If it's unlocked...
-            current_room = room
+            cur_room = room
             print(f"You go through the {direction} door.")
             look_around()
         else:  # Dang, it's locked.
@@ -316,12 +316,12 @@ def go(direction):
 @adv.when("go back")
 def exit_room():
     """Exit the room, if possible."""
-    global last_room, current_room
-    if last_room == current_room:  # No way are you going out!
+    global prev_room, cur_room
+    if prev_room == cur_room:  # No way are you going out!
         error(f"You can't go back the way you came.")
     else:  # Ok, you go into the previous room.
         print("You exit the room.")
-        last_room, current_room = current_room, last_room
+        prev_room, cur_room = cur_room, prev_room
         look_around()
 
 
@@ -332,8 +332,8 @@ def eat(item):
     """Eat an item."""
     obj = my_inventory.find(item)
 
-    if ent := current_room.entities.find(
-            item
+    if ent := cur_room.entities.find(
+        item
     ):  # There's an entity to eat, but that's kinda rude, don't you think?
         error(
             f"You try to eat {ent.def_name}, but {ent.object_pronoun} doesn't seem to like it."

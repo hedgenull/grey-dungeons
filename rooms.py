@@ -22,8 +22,7 @@ boring = adv.Room(
 clinton = adv.Room(
     "A dimly-lit room that has 2 doors forward and a Hillary Clinton 2016 campaign poster. Better get outta here!"
 )
-chest = adv.Room(
-    "A dark room that has 1 door ahead and a locked chest in the corner.")
+chest = adv.Room("A dark room that has 1 door ahead and a locked chest in the corner.")
 one_door = adv.Room(
     "A dark room that has one door straight ahead. Maybe you shouldn't go in there..."
 )
@@ -39,13 +38,11 @@ soup_time = adv.Room(
 organ = adv.Room(
     "A dark room that has 1 other door. There's a pipe organ, which is eerily playing itself."
 )
-sword = adv.Room(
-    "A dark room that has 1 other door, on which hangs a huge sword.")
+sword = adv.Room("A dark room that has 1 other door, on which hangs a huge sword.")
 secret = adv.Room(
     "A room with 2 doors. It's obvious that this used to be a secret place- there's a big sign saying 'This is a secret place' hanging on the door."
 )
-peach = adv.Room(
-    "A dark room that has 2 doors, and a rotting peach in the corner.")
+peach = adv.Room("A dark room that has 2 doors, and a rotting peach in the corner.")
 hat = adv.Room(
     "A dark room that has 2 doors. On the floor lies a random purple hat- ominous."
 )
@@ -62,7 +59,8 @@ death = adv.Room(
     "A dark room that has 3 doors. On the first door, which is locked, there is a message saying 'Certain Death' written in blood. I wonder what's in there?"
 )
 gold = adv.Room(
-    "A semi-dark room that has 4 doors, each of which is made of solid gold.")
+    "A semi-dark room that has 4 doors, each of which is made of solid gold."
+)
 dark = adv.Room(
     "A pitch-black room that's perfectly quiet. You can't tell what's lurking in the shadows..."
 )
@@ -131,8 +129,7 @@ entrance.items = adv.Bag([Item("torch", "lit torch")])
 
 boring.items = adv.Bag([Item("stool", "small stool")])
 
-clinton.items = adv.Bag(
-    [Item("campaign poster", "clinton 2016 poster", "poster")])
+clinton.items = adv.Bag([Item("campaign poster", "clinton 2016 poster", "poster")])
 
 one_door.items = adv.Bag([Item("small dagger", "knife", "dagger")])
 
@@ -152,33 +149,55 @@ dark.items = adv.Bag([Item("large key", "big key")])
 
 secret.items = adv.Bag([Item("bar of gold", "gold bar", "gold ingot", "gold")])
 
-soup_time.items = adv.Bag([
-    Item("mysterious floating orb", "orb", "mysterious orb", "floating orb",
-         "soup time")
-])
+soup_time.items = adv.Bag(
+    [
+        Item(
+            "mysterious floating orb",
+            "orb",
+            "mysterious orb",
+            "floating orb",
+            "soup time",
+        )
+    ]
+)
 
-crypt.items = adv.Bag([
-    Item("skull", "old skull", "ancient skull"),
-    Item("femur", "legbone", "femur bone")
-])
+crypt.items = adv.Bag(
+    [
+        Item("skull", "old skull", "ancient skull"),
+        Item("femur", "legbone", "femur bone"),
+    ]
+)
 
 # Entities in rooms
 
 entrance.entities.add(
-    Character("skeleton", "An old, crumbling skeleton of a not-quite-human.",
-              ["clank", "creak", "crunch", "crack"]))
+    Character(
+        "skeleton",
+        "An old, crumbling skeleton of a not-quite-human.",
+        ["clank", "creak", "crunch", "crack"],
+    )
+)
 
 liquid.entities.add(
-    Character("rat", "A big rat that shambles about the room.",
-              ["squeak", "squonk", "screech", "peep"]))
+    Character(
+        "rat",
+        "A big rat that shambles about the room.",
+        ["squeak", "squonk", "screech", "peep"],
+    )
+)
 
 statue.entities.add(
     Character(
         "statue",
         "A statue of an armor-clad warrior. It holds a big spear in its right hand.",
-        ["thud", "thunk", "creak", "crack"]))
+        ["thud", "thunk", "creak", "crack"],
+    )
+)
 
 crypt.entities.add(
-    Character("zombie",
-              "An undead creature with glowing green eyes and a scimitar.",
-              ["bleugh", "blargh", "auch", "throrp", "ugh"]))
+    Character(
+        "zombie",
+        "An undead creature with glowing green eyes and a scimitar.",
+        ["bleugh", "blargh", "auch", "throrp", "ugh"],
+    )
+)
