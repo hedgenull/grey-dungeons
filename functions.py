@@ -174,6 +174,7 @@ def talk_to(entity: str):
 @adv.when("attack TARGET with ITEM")
 @adv.when("maul TARGET with ITEM")
 @adv.when("maim TARGET with ITEM")
+@adv.when("beat TARGET with ITEM")
 def hit_with(target: str, item: str):
     """Hit something with something else."""
     _target = cur_room.entities.find(target)
@@ -196,7 +197,13 @@ def hit_with(target: str, item: str):
 @adv.when("kick TARGET")
 @adv.when("attack TARGET")
 @adv.when("kung fu TARGET")
+@adv.when("maim TARGET")
+@adv.when("beat TARGET")
+@adv.when("beat TARGET over the head")
 @adv.when("punch TARGET")
+@adv.when("box TARGET")
+@adv.when("whack TARGET")
+@adv.when("bonk TARGET")
 def hit(target: str):
     """Kung-fu the target."""
     _target = cur_room.entities.find(target)
@@ -300,7 +307,7 @@ def go(direction: str):
     room = cur_room.exit(direction)
     if room:  # If there's a door in that direction...
         if not room.locked:  # If it's unlocked...
-            cur_room = room
+            prev_room, cur_room = cur_room, room
             print(f"You go through the {direction} door.")
             look_around()
         else:  # Dang, it's locked.
