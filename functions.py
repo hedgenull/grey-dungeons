@@ -1,4 +1,4 @@
-"""Main game file."""
+"""Container file for main game functions/logic."""
 
 import random
 from time import sleep
@@ -341,11 +341,3 @@ def eat(item: str):
         taste = random.choice(TASTES)
         print(f"You eat the {obj}. Hmm... rather {taste}.")
         my_inventory.remove(obj)
-
-
-####################################
-# Play the game
-####################################
-
-if __name__ == "__main__":
-    main()
