@@ -67,7 +67,7 @@ TASTES = [
 CONTEMPLATIONS = [
     "Ergh. Will I ever escape this cursed crypt?",
     "Ah, life is merely a conjuration of the mind seeking its own meaning.",
-    "The eggs should be fresh back home today.",
+    "The eggs should be ripe back home today.",
     "Others have perished in these forgotten catacombs before. Soon, unless fortune decrees, I too must meet the same fate.",
     "The universe is nothing. Everything is nothing. Nothing is everything.",
     "Ah, me! Lo, that I would in vain attempt to reach the flower of mine youth!",
@@ -79,8 +79,8 @@ CONTEMPLATIONS = [
 BRAIN_DAMAGE = [
     "You show {name} the latest CNN article. Its stunning lack of logic gives {obj} a pounding headache just looking at it.",
     "You tell {name} that water is dry. {name}'s head summarily explodes.",
-    "You show {name} how Biden clearly won the 2020 election. {obj} faints dead away.",
-    "You tell {name} that pay phones are disappearing so that they can't exit the Matrix. {sbj} goes into a coma.",
+    "You show {name} how Biden 'clearly' won the 2020 election. {obj} faints dead away.",
+    "You tell {name} that pay phones are disappearing so that they can't escape the Matrix. {obj} goes into a coma.",
 ]
 
 STORY = """
