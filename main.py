@@ -1,4 +1,5 @@
 import random
+from sys import exit
 from time import sleep
 
 import adventurelib as adv
@@ -31,6 +32,7 @@ def drop(item):
         error(f"You do not have any {item}.")
     else:  # Yay, we can drop stuff now.
         print(f"You drop the {obj}, which falls with a thump to the floor.")
+
         cur_room.items.add(obj)
 
 
@@ -67,9 +69,7 @@ def main():
     # Prepare for variable assignment!
     global my_name, my_species
 
-    my_name = pip.inputStr(
-        prompt=f"{MAIN_COLOR}What is your name, traveler? {YELLOW}"
-    ).title()
+    my_name = pip.inputStr(prompt=f"{MAIN_COLOR}What is your name, traveler? {YELLOW}").title()
     my_species = pip.inputMenu(
         SPECIES, prompt=f"{MAIN_COLOR}What race do you belong to?\n{YELLOW}"
     )
@@ -161,9 +161,7 @@ def talk_to(entity):
     hopefully_entity = cur_room.entities.find(entity)
 
     if hopefully_entity:  # It's a real entity.
-        input(
-            f"{MAIN_COLOR}What do you want to say to {hopefully_entity.def_name}?{YELLOW} "
-        )
+        input(f"{MAIN_COLOR}What do you want to say to {hopefully_entity.def_name}?{YELLOW} ")
         print(f'{hopefully_entity.def_name.title()} says "{hopefully_entity.talk()}"')
     elif not_person := cur_room.items.find(entity):  # If it's an item, not an entity...
         if not_person:
@@ -259,15 +257,11 @@ def burn(item):
     if my_species == "half-dragon":  # Can you breathe fire? If so...
         if obj := cur_room.items.take(item):  # If the item's in the room...
             print(f"You burn the {obj}. Its ashes fall to the floor.")
-            cur_room.items.add(
-                Item(f"{obj} ashes", f"{obj} remains", f"{obj} remnants")
-            )
+            cur_room.items.add(Item(f"{obj} ashes", f"{obj} remains", f"{obj} remnants"))
         elif obj := my_inventory.take(item):  # If it's in your inventory...
             print(f"You burn the {obj} and stuff its ashes in your pocket.")
             my_inventory.add(Item(f"{obj} ashes", f"{obj} remains", f"{obj} remnants"))
-        elif obj := cur_room.entities.find(
-            item
-        ):  # It's not an item after all, it's an entity.
+        elif obj := cur_room.entities.find(item):  # It's not an item after all, it's an entity.
             print(f"You burn {obj.def_name}.")
             obj.health -= 1
             if obj.check_dead("{}'s ashes fall to the floor."):
@@ -303,9 +297,7 @@ def go(direction):
             print(f"You go through the {direction} door.")
             look_around()
         else:  # Dang, it's locked.
-            error(
-                f"That door is locked. How could you get in? (Hint: you're a kung-fu master.)"
-            )
+            error(f"That door is locked. How could you get in? (Hint: you're a kung-fu master.)")
     else:  # There's no exit that way, buddy. They altered the Matrix.
         error(f"You can't go {direction}.")
 
@@ -335,9 +327,7 @@ def eat(item):
     if ent := cur_room.entities.find(
         item
     ):  # There's an entity to eat, but that's kinda rude, don't you think?
-        error(
-            f"You try to eat {ent.def_name}, but {ent.object_pronoun} doesn't seem to like it."
-        )
+        error(f"You try to eat {ent.def_name}, but {ent.object_pronoun} doesn't seem to like it.")
     elif not obj:  # There is nothing to eat.
         error(f"You do not have any {item}.")
     else:  # Mmm. You'll be the next Gordon Ramsay at this rate.

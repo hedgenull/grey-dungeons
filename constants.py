@@ -1,5 +1,5 @@
 from adventurelib import Bag
-from colorama import init, Fore
+from colorama import Fore, init
 
 # A few important things
 

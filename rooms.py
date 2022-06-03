@@ -43,9 +43,7 @@ secret = adv.Room(
     "A room with 2 doors. It's obvious that this used to be a secret place- there's a big sign saying 'This is a secret place' hanging on the door."
 )
 peach = adv.Room("A dark room that has 2 doors, and a rotting peach in the corner.")
-hat = adv.Room(
-    "A dark room that has 2 doors. On the floor lies a random purple hat- ominous."
-)
+hat = adv.Room("A dark room that has 2 doors. On the floor lies a random purple hat- ominous.")
 statue = adv.Room(
     "A dark and dusty room. It has a tall statue of a knight in the middle. Wait, did that thing just move?"
 )
@@ -58,9 +56,7 @@ ham = adv.Room(
 death = adv.Room(
     "A dark room that has 3 doors. On the first door, which is locked, there is a message saying 'Certain Death' written in blood. I wonder what's in there?"
 )
-gold = adv.Room(
-    "A semi-dark room that has 4 doors, each of which is made of solid gold."
-)
+gold = adv.Room("A semi-dark room that has 4 doors, each of which is made of solid gold.")
 dark = adv.Room(
     "A pitch-black room that's perfectly quiet. You can't tell what's lurking in the shadows..."
 )
