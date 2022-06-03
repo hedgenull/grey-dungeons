@@ -1,3 +1,5 @@
+"""Character classes for easy character creation."""
+
 import random
 
 from adventurelib import Item

@@ -1,5 +1,6 @@
+"""Main game file."""
+
 import random
-from sys import exit
 from time import sleep
 
 import adventurelib as adv
@@ -10,12 +11,9 @@ from character import *
 from constants import *
 from rooms import *
 
-# Game variables
-
-cur_room = entrance
-prev_room = entrance
-
+####################################
 # Functions
+####################################
 
 # adventurelib function overwrites
 adv.prompt = lambda *_: f"{MAIN_COLOR}{my_name.title()} > {YELLOW}"
@@ -25,7 +23,7 @@ adv.no_command_matches = lambda *_: error(random.choice(ERRORS))
 @adv.when("drop ITEM")
 @adv.when("get rid of ITEM")
 @adv.when("ditch ITEM")
-def drop(item):
+def drop(item: str):
     """Drop an item."""
     obj = my_inventory.take(item)
     if not obj:  # There is no spoon. Or rather, there is no item.
@@ -49,7 +47,7 @@ def show_inventory():
         print(f"* {item}")
 
 
-def error(msg):
+def error(msg: str):
     """Print an error in red."""
     print(f"{RED}{msg}{MAIN_COLOR}")
 
@@ -83,7 +81,7 @@ def main():
 @adv.when("take ITEM")
 @adv.when("get ITEM")
 @adv.when("grab ITEM")
-def take(item):
+def take(item: str):
     """Take an item and add it to your inventory."""
     obj = cur_room.items.take(item)
     if not obj:  # There's not an item in the room with that name...
@@ -139,7 +137,7 @@ def look_around():
 @adv.when("break down DIRECTION door")
 @adv.when("kick down DIRECTION door")
 @adv.when("kung fu DIRECTION door")
-def break_down(direction):
+def break_down(direction: str):
     """Try to break down a door."""
     global cur_room
 
@@ -156,7 +154,7 @@ def break_down(direction):
 @adv.when("talk to ENTITY")
 @adv.when("make conversation with ENTITY")
 @adv.when("converse with ENTITY")
-def talk_to(entity):
+def talk_to(entity: str):
     """Talk to an entity."""
     hopefully_entity = cur_room.entities.find(entity)
 
@@ -176,7 +174,7 @@ def talk_to(entity):
 @adv.when("attack TARGET with ITEM")
 @adv.when("maul TARGET with ITEM")
 @adv.when("maim TARGET with ITEM")
-def hit_with(target, item):
+def hit_with(target: str, item: str):
     """Hit something with something else."""
     _target = cur_room.entities.find(target)
     _item = my_inventory.find(item)
@@ -199,7 +197,7 @@ def hit_with(target, item):
 @adv.when("attack TARGET")
 @adv.when("kung fu TARGET")
 @adv.when("punch TARGET")
-def hit(target):
+def hit(target: str):
     """Kung-fu the target."""
     _target = cur_room.entities.find(target)
 
@@ -214,7 +212,7 @@ def hit(target):
 
 @adv.when("use ITEM")
 @adv.when("equip ITEM")
-def equip(item):
+def equip(item: str):
     """Equip an item."""
     if obj := my_inventory.find(item):
         global current_item
@@ -226,7 +224,7 @@ def equip(item):
 
 @adv.when("give TARGET brain damage")
 @adv.when("give TARGET permanent brain damage")
-def brain_damage(target):
+def brain_damage(target: str):
     """Give a target permanent brain damage."""
     _target = cur_room.entities.find(target)
 
@@ -253,7 +251,7 @@ def contemplate():
 @adv.when("burn ITEM")
 @adv.when("set fire to ITEM")
 @adv.when("set ITEM on fire")
-def burn(item):
+def burn(item: str):
     """It does what it sounds like."""
     if my_species == "half-dragon":  # Can you breathe fire? If so...
         if obj := cur_room.items.take(item):  # If the item's in the room...
@@ -280,6 +278,14 @@ def burn(item):
         print("What are you, some kind of dragon? (That's a big hint.)")
 
 
+@adv.when("go north", direction="north")
+@adv.when("go south", direction="south")
+@adv.when("go east", direction="east")
+@adv.when("go west", direction="west")
+@adv.when("go n", direction="north")
+@adv.when("go s", direction="south")
+@adv.when("go e", direction="east")
+@adv.when("go w", direction="west")
 @adv.when("north", direction="north")
 @adv.when("south", direction="south")
 @adv.when("east", direction="east")
@@ -288,7 +294,7 @@ def burn(item):
 @adv.when("s", direction="south")
 @adv.when("e", direction="east")
 @adv.when("w", direction="west")
-def go(direction):
+def go(direction: str):
     """Go in a direction, if possible."""
     global cur_room
     room = cur_room.exit(direction)
@@ -321,7 +327,7 @@ def exit_room():
 @adv.when("eat ITEM")
 @adv.when("ingest ITEM")
 @adv.when("swallow ITEM")
-def eat(item):
+def eat(item: str):
     """Eat an item."""
     obj = my_inventory.find(item)
 
@@ -336,6 +342,10 @@ def eat(item):
         print(f"You eat the {obj}. Hmm... rather {taste}.")
         my_inventory.remove(obj)
 
+
+####################################
+# Play the game
+####################################
 
 if __name__ == "__main__":
     main()

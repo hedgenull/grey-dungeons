@@ -1,12 +1,16 @@
+"""Container file for important game settings and variables."""
+
 from adventurelib import Bag
 from colorama import Fore, init
 
-# A few important things
+from rooms import *
 
 my_name = None
 my_species = None
 my_health = 100
 my_inventory = Bag()
+cur_room = entrance
+prev_room = entrance
 
 INVENTORY_SIZE = 10
 current_item = None

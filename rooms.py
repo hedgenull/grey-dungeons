@@ -1,17 +1,23 @@
-"""All rooms, connections, characters and items in Grey Dungeons 4.0."""
+"""All rooms, connections, characters and items in Grey Dungeons."""
 
 import adventurelib as adv
 from adventurelib import Item
 
 from character import *
 
-# By default, all rooms are unlocked, visible, and empty of items and characters.
+####################################
+# Default room settings
+####################################
+
+# By default, all rooms are unlocked, visible, and empty of items and entities.
 adv.Room.locked = False
 adv.Room.visible = True
 adv.Room.items = adv.Bag()
 adv.Room.entities = adv.Bag()
 
+####################################
 # Room variables
+####################################
 
 entrance = adv.Room(
     "A small room lit by torches. Three wooden doors lead elsewhere, and a rockpile blocks the way out."
@@ -70,7 +76,9 @@ crypt = adv.Room(
     "A dark passageway that slopes downward. In the walls are carved slots, filled with skeletons and corpses. Yipes!"
 )
 
+####################################
 # Room connections
+####################################
 
 entrance.west = boring
 entrance.north = clinton
@@ -119,7 +127,9 @@ lava.north = portal
 
 portal.north = crypt
 
-# Room items
+####################################
+# Items
+####################################
 
 entrance.items = adv.Bag([Item("torch", "lit torch")])
 
@@ -164,7 +174,9 @@ crypt.items = adv.Bag(
     ]
 )
 
-# Entities in rooms
+####################################
+# Entities
+####################################
 
 entrance.entities.add(
     Character(
