@@ -30,7 +30,7 @@ def drop(item):
     obj = my_inventory.take(item)
     if not obj:  # There is no spoon. Or rather, there is no item.
         error(f"You do not have any {item}.")
-    else:  # Yay, we can drop stuff now.
+    else:  # Yay, we can drop stuff now!
         print(f"You drop the {obj}, which falls with a thump to the floor.")
 
         cur_room.items.add(obj)
@@ -56,12 +56,12 @@ def error(msg):
 
 def main():
     """Start the game."""
-    # Print the story in blue...
+    # Print the story in blue
     print(MAIN_COLOR, end="")
     print(STORY)
     input(f"Press Enter to continue...{MAGENTA}\n")
 
-    # Print the title in a random font + magenta...
+    # Print the title in a random font + magenta
     font = random.choice(FONTS)
     tprint(f"GREY DUNGEONS", font=font)
     sleep(0.5)
@@ -207,7 +207,7 @@ def hit(target):
         print(f"You flail wildly at {_target.def_name}.")
         _target.health -= 0.5
     elif _target := cur_room.items.find(target):  # There's an item to knock around.
-        print(f"You flail wildly at the {_target}.")
+        print(f"You knock the {_target} around the room.")
     else:
         error(f"There is no {target}.")
 
@@ -224,6 +224,7 @@ def equip(item):
         error(f"You don't have any {item}.")
 
 
+@adv.when("give TARGET brain damage")
 @adv.when("give TARGET permanent brain damage")
 def brain_damage(target):
     """Give a target permanent brain damage."""
