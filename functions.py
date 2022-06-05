@@ -8,8 +8,8 @@ import pyinputplus as pip
 from art import tprint
 
 from character import *
-from constants import *
 from rooms import *
+from settings import *
 
 ####################################
 # Functions
