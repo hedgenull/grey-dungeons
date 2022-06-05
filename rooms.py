@@ -22,7 +22,7 @@ adv.Room.entities = adv.Bag()
 entrance = adv.Room(
     "A small room lit by torches. Three wooden doors lead elsewhere, and a rockpile blocks the way out."
 )
-boring = adv.Room(
+stool = adv.Room(
     "A dark room that has 2 doors. A small, dusty, three-legged stool sits in the corner. It's quite boring."
 )
 clinton = adv.Room(
@@ -80,12 +80,12 @@ crypt = adv.Room(
 # Room connections
 ####################################
 
-entrance.west = boring
+entrance.west = stool
 entrance.north = clinton
 entrance.east = chest
 
-boring.north = one_door
-boring.west = creepy
+stool.north = one_door
+stool.west = creepy
 
 clinton.west = liquid
 clinton.east = cake_lie
@@ -133,7 +133,7 @@ portal.north = crypt
 
 entrance.items = adv.Bag([Item("torch", "lit torch")])
 
-boring.items = adv.Bag([Item("stool", "small stool")])
+stool.items = adv.Bag([Item("stool", "small stool")])
 
 clinton.items = adv.Bag([Item("campaign poster", "clinton 2016 poster", "poster")])
 
