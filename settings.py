@@ -29,7 +29,7 @@ FONTS = [
     "poison",
     "sblood",
 ]
-ERRORS = [
+ERROR_MESSAGES = [
     "What?",
     "I don't know what you mean.",
     "Are you crazy?",
@@ -63,6 +63,7 @@ TASTES = [
     "buttery",
     "damp",
     "soggy",
+    "luscious",
 ]
 CONTEMPLATIONS = [
     "Ergh. Will I ever escape this cursed crypt?",
@@ -79,7 +80,7 @@ CONTEMPLATIONS = [
 BRAIN_DAMAGE = [
     "You show {name} the latest CNN article. Its stunning lack of logic gives {obj} a pounding headache just looking at it.",
     "You tell {name} that water is dry. {name}'s head summarily explodes.",
-    "You show {name} how Biden 'clearly' won the 2020 election. {obj} faints dead away.",
+    "You show {name} how Biden *clearly* won the 2020 election. {obj} faints dead away.",
     "You tell {name} that pay phones are disappearing so that they can't escape the Matrix. {obj} goes into a coma.",
 ]
 

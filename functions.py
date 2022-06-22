@@ -17,7 +17,7 @@ from settings import *
 
 # adventurelib function overwrites
 adv.prompt = lambda *_: f"{MAIN_COLOR}{my_name.title()} > {YELLOW}"
-adv.no_command_matches = lambda *_: error(random.choice(ERRORS))
+adv.no_command_matches = lambda *_: error(random.choice(ERROR_MESSAGES))
 
 
 @adv.when("drop ITEM")
