@@ -67,14 +67,15 @@ TASTES = [
 ]
 CONTEMPLATIONS = [
     "Ergh. Will I ever escape this cursed crypt?",
-    "Ah, life is merely a conjuration of the mind seeking its own meaning.",
+    "Ah, life is merely a conjuration of the mind seeking its own meaning",
     "The eggs should be ripe back home today.",
-    "Others have perished in these forgotten catacombs before. Soon, unless fortune decrees, I too must meet the same fate.",
-    "The universe is nothing. Everything is nothing. Nothing is everything.",
+    "Others have perished in these forgotten catacombs before. Soon, unless fortune decrees, I too must meet the same fate",
+    "The universe is nothing. Everything is nothing. Nothing is everything",
     "Ah, me! Lo, that I would in vain attempt to reach the flower of mine youth!",
-    "I think, therefore I am.",
-    "The only thing I know is that I know nothing.",
-    "Life is the measure of all things.",
+    "I think, therefore I am not",
+    "The only thing I know is that I know nothing",
+    "Life is the measure of all things",
+    "I wonder why ice is so cold",
 ]
 
 BRAIN_DAMAGE = [
