@@ -21,8 +21,10 @@ adv.no_command_matches = lambda *_: error(random.choice(ERROR_MESSAGES))
 
 
 @adv.when("drop ITEM")
+@adv.when("grasp ITEM")
 @adv.when("get rid of ITEM")
 @adv.when("ditch ITEM")
+@adv.when("seize ITEM")
 def drop(item: str):
     """Drop an item."""
     obj = my_inventory.take(item)
@@ -258,6 +260,7 @@ def contemplate():
 @adv.when("burn ITEM")
 @adv.when("set fire to ITEM")
 @adv.when("set ITEM on fire")
+@adv.when("incinerate ITEM")
 def burn(item: str):
     """It does what it sounds like."""
     if my_species == "half-dragon":  # Can you breathe fire? If so...
@@ -268,7 +271,7 @@ def burn(item: str):
             print(f"You burn the {obj} and stuff its ashes in your pocket.")
             my_inventory.add(Item(f"{obj} ashes", f"{obj} remains", f"{obj} remnants"))
         elif obj := cur_room.entities.find(item):  # It's not an item after all, it's an entity.
-            print(f"You burn {obj.def_name}.")
+            print(f"You incinerate {obj.def_name}.")
             obj.health -= 1
             if obj.check_dead("{}'s ashes fall to the floor."):
                 cur_room.entities.remove(obj)
