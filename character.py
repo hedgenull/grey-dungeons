@@ -12,12 +12,14 @@ class Character(Item):
         self,
         name: str,
         description: str,
-        speech: list = [],
+        speech: list = None,
         def_name: str = None,
         gender: str = None,
         health: int = 10,
     ):
         """Construct a Character object."""
+        if speech is None:
+            speech = []
         super().__init__(name.title())
         self.name = name.title()
         self.def_name = def_name.lower() if def_name else f"the {self.name.lower()}"
@@ -48,10 +50,12 @@ class MaleCharacter(Character):
         self,
         name: str,
         description: str,
-        speech: list = [],
+        speech: list = None,
         def_name: str = None,
         health: int = 100,
     ):
+        if speech is None:
+            speech = []
         super().__init__(name, def_name, description, speech, "m", health)
         self.subject_pronoun = "he"
         self.object_pronoun = "him"
@@ -64,10 +68,12 @@ class FemaleCharacter(Character):
         self,
         name: str,
         description: str,
-        speech: list = [],
+        speech: list = None,
         def_name: str = None,
         health: int = 100,
     ):
+        if speech is None:
+            speech = []
         super().__init__(name, def_name, description, speech, "f", health)
         self.subject_pronoun = "she"
         self.object_pronoun = "her"
