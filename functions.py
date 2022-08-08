@@ -2,7 +2,9 @@
 
 
 import contextlib
+import os
 import random
+import sys
 from time import sleep
 
 import adventurelib as adv
@@ -328,3 +330,13 @@ def eat(item: str):
         taste = random.choice(TASTES)
         print(f"You eat the {obj}. Hmm... rather {taste}.")
         my_inventory.remove(obj)
+
+
+@adv.when("clear")
+@adv.when("cls")
+def clear():
+    """Clear the screen."""
+    if "win" in sys.platform:
+        os.system("cls")
+    else:
+        os.system("clear")
