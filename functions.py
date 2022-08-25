@@ -59,9 +59,11 @@ def error(msg: str):
 
 def main():
     """Start the game."""
+    os.system("cls" if "win" in sys.platform else "clear")
     print(MAIN_COLOR, end="")
     print(STORY)
     input(f"Press Enter to continue...{MAGENTA}\n")
+    os.system("cls" if "win" in sys.platform else "clear")
     font = random.choice(FONTS)
     tprint("GREY DUNGEONS", font=font)
     sleep(0.5)
@@ -113,15 +115,15 @@ def look_around():
     if cur_room.visible:
         print("\nExits:")
         for exit in cur_room.exits():
-            print(f"* {exit}")
+            print(f"* {RED}{exit}{YELLOW}")
         if cur_room.items:
             print("\nItems:")
             for item in cur_room.items:
-                print(f"* {item}")
+                print(f"* {BLUE}{item}{YELLOW}")
         if cur_room.entities:
             print("\nCreatures:")
             for entity in cur_room.entities:
-                print(f"* {entity}")
+                print(f"* {MAGENTA}{entity}{YELLOW}")
     else:
         error("You can't see anything in here.")
     print(MAIN_COLOR, end="")
@@ -336,7 +338,4 @@ def eat(item: str):
 @adv.when("cls")
 def clear():
     """Clear the screen."""
-    if "win" in sys.platform:
-        os.system("cls")
-    else:
-        os.system("clear")
+    os.system("cls" if "win" in sys.platform else "clear")
