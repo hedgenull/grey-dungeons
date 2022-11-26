@@ -1,4 +1,4 @@
-# Grey Dungeons- A fantasy text adventure game made in Python
+# Grey Dungeons
 
 Grey Dungeons is a simple text adventure game where you navigate through a dungeon- which isn't without its surprises!
 
